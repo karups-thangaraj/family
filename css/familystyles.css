@@ -1,0 +1,21 @@
+body{
+    background-color: darkkhaki;
+}
+h1{
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 300%;
+}
+p{
+    color: red;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 160%;
+}
+
+th, td {
+    padding-right: 5px;
+    border: 1px solid blue;
+    border-width: thin;
+    background-origin: padding-box;
+
+}
