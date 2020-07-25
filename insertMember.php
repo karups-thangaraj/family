@@ -1,8 +1,8 @@
 <?php
-$user = "gokul";
-$password = "password";
-$database = "familydb";
-$table = "members";
+
+include './database/config/config.php';
+
+$table = "familydb.members";
 
 $iname = $_POST['fullname'];
 $igender = $_POST['gender'];
@@ -14,9 +14,10 @@ echo "Gender:     ", $igender,"<BR>";
 echo "DoB:        ", $idob, "<BR>";
 
 try {
-    $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+    $db = new PDO("mysql:host=$host",$user,$password,$options);
+    //$db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
     print "Connected Successfully <BR>";
-    $sql_insert = "INSERT INTO members (mem_name, mem_gender, mem_dob) VALUES ('$iname', '$igender' , date('$idob') )";
+    $sql_insert = "INSERT INTO $table (mem_name, mem_gender, mem_dob) VALUES ('$iname', '$igender' , date('$idob') )";
     print "SQL Statement: " . $sql_insert . "<BR>";
     $stmt = $db->prepare($sql_insert);
     $rows = $stmt->execute();
