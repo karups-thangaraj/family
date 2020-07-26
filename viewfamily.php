@@ -11,7 +11,13 @@
 <?php
 
     include './database/config/config.php';
-    $table = "familydb.members";
+    if ($connection == "local"){
+        $table = "members";
+    }else {
+        $table = "$database.members";
+    }
+  
+
     try 
     { 
         $db = new PDO("mysql:host=$host",$user,$password,$options);
@@ -20,12 +26,11 @@
     { 
         die("Failed to connect to the database: " . $ex->getMessage()); 
     } 
-
-    try {
-        echo "<h2>Family Members</h2>";
+  
 ?>
 
-<p>
+<div class="main">
+    <h2> Family Members Table </h2>
     <table>
         <tr>
             <th> Name </th>
@@ -34,26 +39,37 @@
         </tr>
         
         <?php 
-           
+        
+            try {
+                         
             foreach($db->query("SELECT mem_name, mem_gender, mem_dob FROM $table") as $row) {  ?>
-            
+
             <tr>
                 <td> <?php echo  $row['mem_name']  ?> </td>
                 <td> <?php echo  $row['mem_gender']  ?> </td>
                 <td> <?php echo $row['mem_dob']  ?> </td>
             </tr>
+
         <?php } ?>
 
     </table>
         
-<?php 
+    <?php 
 
     } catch (PDOException $e) {
         print "Error!: " . $e->getMessage() . "<br/>";
         die();
     }
 
-?>
-</p>
+    ?>
+
+        <div id="textbox">
+            <p class="alignleft"> Add Family Member <a href="addfamilymember.php" target="_self">Add Member</a> </p>
+            <p class="alignright"> Return to Home Page <a href="index2.php" target="_self">Home Page</a> </p>
+        </div>  
+        <div style="clear: both;"></div>
+ 
+</div>
+
 </body>
 </html>

@@ -1,28 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Family Member added </title>
+    <link rel="stylesheet" href="css/indexstyles.css">
+</head>
+<body>
+    
+
 <?php
 
 include './database/config/config.php';
 
-$table = "familydb.members";
+$table = "$database.members";
 
 $iname = $_POST['fullname'];
 $igender = $_POST['gender'];
 $idob = $_POST['DoB'];
 
-echo "<h1> Submitted Values </h1>";
-echo "Full Name:  ", $iname,"<BR>";
-echo "Gender:     ", $igender,"<BR>";
-echo "DoB:        ", $idob, "<BR>";
-
 try {
     $db = new PDO("mysql:host=$host",$user,$password,$options);
-    //$db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
-    print "Connected Successfully <BR>";
+   
     $sql_insert = "INSERT INTO $table (mem_name, mem_gender, mem_dob) VALUES ('$iname', '$igender' , date('$idob') )";
-    print "SQL Statement: " . $sql_insert . "<BR>";
     $stmt = $db->prepare($sql_insert);
     $rows = $stmt->execute();
-    If ($rows>0){
-        echo "Number of rows impacted: ",$rows,"<BR>";
+    If ($rows>0){   ?>
+
+        <div class="main"> 
+            <h2> New family member added successfully </h2>
+
+            <table>
+                <tr> <th> Name      : </th> <td> <?php echo $iname ?> </tr>
+                <tr> <th> Gender    : </th> <td> <?php echo $igender ?> </tr>
+                <tr> <th> DoB       : </th> <td> <?php echo $idob ?> </tr>
+            </table>
+
+            <p class="alignleft"> Add Family Member <a href="addfamilymember.php" target="_self">Add Family</a> </p>
+            <p class="alignright"> Return to Home Page <a href="index2.php" target="_self">Home Page</a> </p>
+            <div style="clear: both;"></div>
+        </div>
+                
+    <?php
     }else{
         echo "Error Inserting new member <BR>";
     }
@@ -33,3 +52,6 @@ try {
 
 
 ?>
+
+</body>
+</html>

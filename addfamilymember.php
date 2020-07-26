@@ -34,10 +34,13 @@
                 <input type="submit" name="submit"  value="Add Family Member" />
             </div>
 
+            <div>
+                <p class="alignleft"> View Family Table <a href="viewfamily.php" target="_self">View Family</a> </p>
+                <p class="alignright"> Return to Home Page <a href="index2.php" target="_self">Home Page</a> </p>
+            </div>  
+            <div style="clear: both;"></div>
 
-
-        </form>
-
+          </form>
     </header>
   </body>
 </html>
