@@ -29,8 +29,8 @@
         
         $database = "familydb";        # Get these database details from
         $host =  "localhost;dbname=familydb";  # the web console
-        $user     = "gokul";   #
-        $password = "password";   #
+        $user     = "root";   #
+        $password = "root";   #
         $port     = 3306;           #
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');         
     }
