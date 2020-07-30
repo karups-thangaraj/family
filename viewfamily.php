@@ -18,11 +18,13 @@
 </head>
 
 <body>
+    <!-- main section -->
     <div class="container-fluid  p-3 my-3 bg-primary text-white text-center">
         <h1>View Family Table</h1>
         <p>Simple way to learn PHP, MySQL, HTML/CSS/Bootstrap</p>
     </div>
 
+    <!--core logic -->
     <?php
 
     include './database/config/config.php';
@@ -84,7 +86,7 @@
         </div>
     </div>
 
-
+    <!-- Common footer for all pages   -->
     <div class="card-group">
         <div class="card bg-primary">
             <div class="card-body text-center">

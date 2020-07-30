@@ -14,17 +14,22 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <title>Welcome to my new Home Page - Karups</title>
+    <title>Movies & Screens </title>
 </head>
 
 <body>
 
+    <!-- Top banner -->
     <div class="container-fluid  p-3 my-3 bg-primary text-white text-center">
         <h1>iMovies Reservation Sytem</h1>
         <p>VIT - DBMS Project - Fall Semester 2020-21 - by Goku, Rahul & xxxx</p>
     </div>
 
     <?php
+
+    # Get the information from the URL
+    $movie_id = $_GET['p_movie_id'];
+
 
     include './database/config/config.php';
     if ($connection == "local"){
@@ -41,66 +46,47 @@
     { 
         die("Failed to connect to the database: " . $ex->getMessage()); 
     } 
+    $sqlstmt = $db->prepare("SELECT movie_id, movie_name, movie_cast, movie_director, movie_img_fn, 
+    movie_language, movie_rel_date, movie_short_desc FROM $t_Movies where movie_id=$movie_id");
+    $sqlstmt->execute();
+    $row=$sqlstmt->fetch();
+
     ?>
+
 
     <div class="container">
 
-        <?php 
-        $number_of_cards=0;         //Track to display 3 cards per row
-        $row_count=$db->query("SELECT count(*) from $t_Movies")->fetchColumn();
-        $number_of_rows=0;
+        <div class="card-group">
+            <div class="card bg-primary" style="width:200px">
 
-        try {
-            foreach($db->query("SELECT movie_id, movie_name, movie_cast, movie_director, movie_img_fn, 
-            movie_language, movie_rel_date, movie_short_desc FROM $t_Movies") as $row) {  
-                
-                if($number_of_cards==0){     //3 cards per row  ?>
-        <div class="card-deck">
-            <?php }
-
-                if(($row['movie_id'] % 2) == 1){
-                    $bg = "bg-primary";
-                    $btn = "btn-warning";
-                }else{
-                    $bg = "bg-warning";
-                    $btn = "btn-primary";
-                } ?>
-
-            <div class="card <?php echo $bg; ?>" style="max-width:18rem">
-                <img class="card-img-top rounded-circle" src="./database/images/<?php echo $row['movie_img_fn']; ?>" alt="Card image"
-                    style="width:100%">
                 <div class="card-body">
-                    <h4 class="card-title"> <?php echo $row['movie_name'], "(", $row['movie_language'], ")"; ?></h4>
-                    <p class="card-text"> <?php echo $row['movie_cast']; ?> </p>
-                    <p class="card-text small"> <?php echo $row['movie_short_desc']; ?> </p>
+                    <h3 class="card-title"><?php echo $row['movie_name'],"(",$row['movie_language'],")"; ?></h3>
+                    <h4 class="card-text">Cast: <?php echo $row['movie_cast']; ?></h4>
+                    <h5 class="card-text">Directed by: <?php echo $row['movie_director']; ?></h5>
+                    <h5 class="card-text">Release Date: <?php echo $row['movie_rel_date']; ?></h5>
+                    <p class="card-text">Summary: <?php echo $row['movie_short_desc']; ?></p>
 
-                </div>
-                <div class="card-footer">
-                    <a href="./movieshow.php?p_movie_id=<?php echo $row['movie_id']; ?>"  class="btn <?php echo $btn; ?>">More Details</a>
                 </div>
             </div>
 
-            <?php 
-                $number_of_cards++;
-                $number_of_rows++;
-                if(($number_of_cards==3) or ($number_of_rows==$row_count)){  ?>
-        </div> <BR>
-        <?php 
-                $number_of_cards=0;
-                }
-            }
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }  ?>
-
-    </div>
+            <div class="card bg-warning" style="width:200px">
+                <img class="card-img-top" src="./database/images/<?php echo $row['movie_img_fn']; ?>" alt="Card image"
+                    style="width:100%">
+                <div class="card-footer">
+                    <h4 class="card-text">Language: <?php echo $row['movie_language']; ?></h4>
+                </div>
+            </div>
+        </div>
+    </div> <BR>
 
 
+    
+
+    <!-- Common footer style -->
     <div class="card-group">
         <div class="card bg-primary">
             <div class="card-body text-center">
-                <a href="./viewfamily.php" class="btn btn-primary">View Family Table </a>
+                <a href="./viewMovies.php" class="btn btn-primary">Back to View Movies </a>
             </div>
         </div>
         <div class="card bg-warning">
