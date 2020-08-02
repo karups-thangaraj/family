@@ -19,9 +19,10 @@
 
 <body>
 
-    <div class="container-fluid  p-3 my-3 bg-primary text-white text-center">
-        <h1>iMovies Reservation Sytem</h1>
-        <p>VIT - DBMS Project - Fall Semester 2020-21 - by Goku, Rahul & xxxx</p>
+    <div class="container-fluid  p-3 bg-primary text-white text-center" style="margin-bottom:0">
+        <h1>My Learning - Movie Reservation Sytem</h1>
+        <p> Simple web application using PHP, MySQL, HTML, CSS, Bootstrap, Javascript & LAPM</p>
+        <h3> Movies showing currently </h3>
     </div>
 
     <?php
@@ -43,12 +44,13 @@
     } 
     ?>
 
-    <div class="container">
+    <div class="container my-3" style="margin-top:30px">
 
         <?php 
-        $number_of_cards=0;         //Track to display 3 cards per row
+        $number_of_cards=0;         //Track to display 4 cards per row
         $row_count=$db->query("SELECT count(*) from $t_Movies")->fetchColumn();
         $number_of_rows=0;
+        $number_of_movies=0;
 
         try {
             foreach($db->query("SELECT movie_id, movie_name, movie_cast, movie_director, movie_img_fn, 
@@ -57,14 +59,23 @@
                 if($number_of_cards==0){     //3 cards per row  ?>
         <div class="card-deck">
             <?php }
-
-                if(($row['movie_id'] % 2) == 1){
-                    $bg = "bg-primary";
-                    $btn = "btn-warning";
-                }else{
-                    $bg = "bg-warning";
-                    $btn = "btn-primary";
-                } ?>
+                if(($number_of_rows % 2) == 0) {
+                    if(($number_of_cards % 2) == 0) {    
+                        $bg = "bg-primary";
+                        $btn = "btn-warning";
+                    }else{
+                        $bg = "bg-warning";
+                        $btn = "btn-primary";
+                    } 
+                }else {
+                    if(($number_of_cards % 2) == 1) {    
+                        $bg = "bg-primary";
+                        $btn = "btn-warning";
+                    }else{
+                        $bg = "bg-warning";
+                        $btn = "btn-primary";
+                    } 
+                }?>
 
             <div class="card <?php echo $bg; ?>" style="max-width:18rem">
                 <img class="card-img-top rounded-circle" src="./database/images/<?php echo $row['movie_img_fn']; ?>" alt="Card image"
@@ -82,11 +93,12 @@
 
             <?php 
                 $number_of_cards++;
-                $number_of_rows++;
-                if(($number_of_cards==3) or ($number_of_rows==$row_count)){  ?>
+                $number_of_movies++;
+                if(($number_of_cards==4) or ($number_of_movies==$row_count)){  ?>
         </div> <BR>
         <?php 
                 $number_of_cards=0;
+                $number_of_rows++;
                 }
             }
             } catch (PDOException $e) {
@@ -97,10 +109,10 @@
     </div>
 
 
-    <div class="card-group">
+    <div class="card-group" style="margin-bottom:0">
         <div class="card bg-primary">
             <div class="card-body text-center">
-                <a href="./viewfamily.php" class="btn btn-primary">View Family Table </a>
+                <a href="./viewprofile.php" class="btn btn-primary">View user profiles </a>
             </div>
         </div>
         <div class="card bg-warning">
@@ -110,7 +122,7 @@
         </div>
         <div class="card bg-primary">
             <div class="card-body text-center">
-                <a href="#" class="btn btn-primary">Return to Home Page </a>
+                <a href="./addMovie.php" class="btn btn-primary">Add New Movie</a>
             </div>
         </div>
     </div>

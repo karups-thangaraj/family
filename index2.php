@@ -15,25 +15,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <title>Welcome to my new Home Page - Karups</title>
+
+    <style>
+    .fakeimg {
+        height: 200px;
+        background: #aaa;
+    }
+    </style>
 </head>
 
 
 
 <body>
 
-    <div class="container-fluid  p-3 my-3 bg-primary text-white text-center">
-        <h1>Welcome to my Home Page</h1>
-        <p>Resize this responsive page to see the effect!</p>
+    <div class="container-fluid  p-3 my-3 bg-primary text-white text-center" style="margin-bottom:0">
+        <h1>My Learning - Movie Reservation Sytem</h1>
+        <p> Simple web application using PHP, MySQL, HTML, CSS, Bootstrap, Javascript & LAPM</p>
     </div>
 
-    <div class="container">
+    <div class="container" style="margin-top:30px">
 
         <div class="card-deck">
             <div class="card bg-primary" style="width:200px">
                 <img class="card-img-top" src="./img/profile.png" alt="Card image" style="width:100%">
                 <div class="card-body">
-                    <h4 class="card-title">Profile</h4>
-                    <p class="card-text">Use this option to create/update your profile</p>
+                    <h4 class="card-title">My Profile</h4>
+                    <p class="card-text">Use this option to create/update your profile(WIP)</p>
                 </div>
                 <div class="card-footer">
                     <a href="#" class="btn btn-warning">Click here</a>
@@ -54,11 +61,11 @@
             <div class="card bg-primary" style="width:200px">
                 <img class="card-img-top" src="./img/family.png" alt="Card image" style="width:100%">
                 <div class="card-body">
-                    <h4 class="card-title">Family</h4>
-                    <p class="card-text">Use this option to view current family members</p>
+                    <h4 class="card-title">User Profiles</h4>
+                    <p class="card-text">Use this option to view list of all users</p>
                 </div>
                 <div class="card-footer">
-                    <a href="./viewfamily.php" class="btn btn-warning">Click here</a>
+                    <a href="./viewprofile.php" class="btn btn-warning">Click here</a>
                 </div>
 
             </div>
@@ -67,7 +74,7 @@
                 <img class="card-img-top" src="./img/booking.jpg" alt="Card image" style="width:100%">
                 <div class="card-body">
                     <h4 class="card-title">Bookings</h4>
-                    <p class="card-text">Use this option to view your history of bookings</p>
+                    <p class="card-text">Use this option to view your history of bookings(WIP)</p>
                 </div>
                 <div class="card-footer">
                     <a href="#" class="btn btn-primary">Click here</a>
@@ -77,11 +84,12 @@
         </div> <BR>
 
 
-        <div class="container-fluid  p-3 my-3 bg-primary text-white text-center">
-        <h3>Developed using following technology stack:</h3>
-        <p>PHP, MySQL, Apache, HTML5, CSS, Bootstrap. </p>
-        <p small> VS Code as IDE, GitHub as Source Code Library and free hosting at Infinityfree! :) </p>
-    </div>
+        <div class="container-fluid  p-3 my-3 bg-primary text-white text-center" style="margin-bottom:0">
+            <h3>Developed using following technology stack:</h3>
+            <p>PHP, MySQL, Apache, HTML5, CSS, Bootstrap, Javascript. </p>
+            <p small> VS Code as IDE, GitHub as Source Code Library and free cloud server and mysql hosting at
+                Infinityfree! :) </p>
+        </div>
 
 
 </body>

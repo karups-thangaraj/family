@@ -17,5 +17,5 @@ movie_language, movie_rel_date, movie_short_desc) values ('Bahubali','Prabhas, A
 'Raj Mouli', '4bahubali.jpg','Telegu', '2015-07-10','In the kingdom of Mahishmati, Shivudu falls in love with a fair maiden. While trying to woo her, he learns about the conflict-ridden past of his family and his true legacy.');
 
 insert into Movies (movie_name, movie_cast, movie_director, movie_img_fn, 
-movie_language, movie_rel_date, movie_short_desc) values ('K.G.F Chapter 1','Yash & Srinidhi', 
+movie_language, movie_rel_date, movie_short_desc) values ('K.G.F ','Yash & Srinidhi', 
 'Prashanth Neel', '5kgf.jpg','Kananadaa', '2018-12-21','Rocky, a young man, seeks power and wealth in order to fulfil a promise to his dying mother. His quest takes him to Mumbai, where he gets involved with the notorious gold mafia.');
