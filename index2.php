@@ -6,38 +6,66 @@
 
 
    if (isset($_SESSION["uid"])) {    
-        echo "I am in Index2";
        $uid = $_SESSION["uid"];  
-       echo $uid;  
    }
-   $msg = '';   
    
    if (isset($_POST["login"]) && !empty($_POST["uid"]) 
       && !empty($_POST["pwd"])) {
-       
-      if ($_POST["uid"] == "karups" && 
-         $_POST["pwd"] == "1234") {
-         $_SESSION['valid'] = true;
-         $_SESSION['timeout'] = time();
-         $_SESSION['uid'] = $_POST["uid"];
-         $_SESSION["pwd"] = $_POST["pwd"];
-         
-         $uid = $_SESSION['uid'];
-         $pwd = $_SESSION['pwd'];
 
-         if (isset($_POST["isadmin"])) {
-             $isamin = TRUE;
-             $_SESSION["isadmin"]=TRUE;
-         } else {
-             $isadmin = FALSE;
-             $_SESSION["isadmin"]=FALSE;
-         }
-         $isadmin = $_SESSION["isadmin"];
-         echo "value of isadmin is $isadmin";
+     
+        if( empty($_POST["isadmin"]) ) { 
+            $isadmin = FALSE;
+            $_SESSION["isadmin"]= FALSE;
+        }
+        else { 
+            $isadmin = TRUE;
+            $_SESSION["isadmin"]= TRUE; 
+        }
+        
+        $uid = $_POST['uid'];
+        $pwd = $_POST['pwd'];
+
+        include './database/config/config.php';
+        // if Login as Admin is checked, use admin table. Or use user table.
+        if ($isadmin){
+            if ($connection == "local"){
+                $t_user = "admin";
+            }else {
+                $t_user = "$database.admin";
+            }
+        } else {
+            if ($connection == "local"){
+                $t_user = "user";
+            }else {
+                $t_user = "$database.user";
+            }
+        }
+        //echo "table name is $t_user";
+    
+        try { 
+            $db = new PDO("mysql:host=$host",$user,$password,$options);
+            //echo "Database connected successfully <BR>";
+
+            $sql_select = "Select * from $t_user where username =  '$uid' and password = '$pwd'";
+            //echo "SQL Statement is : $sql_select <BR>";
+            
+            $stmt = $db->prepare($sql_select);
+            $stmt->execute();
+    
+            If ($rows = $stmt->fetch()){
+                //echo   $rows['username'];
+                //echo '<script>alert("Login Successful")</script>';
+                $_SESSION['valid'] = TRUE;
+                $_SESSION['uid'] = $_POST["uid"];
+                $_SESSION["pwd"] = $_POST["pwd"];
          
-      }else {
-         echo '<script>alert("Invalid Username or Password. Try again")</script>';
-      }
+            }else {
+                echo '<script>alert("Invalid Username or Password. Try again")</script>';
+            }
+        }catch (PDOException $e) {
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
    }
 ?>
 <!DOCTYPE html>
@@ -77,7 +105,7 @@
             <!-- Set rightside navbar links if no user signed-in -->
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown text-info"><a class="dropdown-toggle" data-toggle="dropdown">
-                        <?php if ($isadmin==1) { ?> <i class="fa fa-usersecret"></i> <?php } ?> Welcome
+                        <?php if ($isadmin) { ?> <i class="fa fa-user-secret"></i> <?php } ?> Welcome
                         <?php echo $uid; ?></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"> <i class="fa fa-user-plus"></i> My Profile</a></li>
