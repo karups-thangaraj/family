@@ -1,67 +1,105 @@
+<?php
+
+    if (isset($_SESSION["uid"])) {
+            $msg = 'Alredy logged in';
+            exit();
+        }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Login Screen</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+    .login-form {
+        width: 340px;
+        margin: 50px auto;
+    }
+
+    .login-form form {
+        margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+
+    .form-control,
+    .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+
+    .input-group-addon .fa {
+        font-size: 18px;
+    }
+
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .bottom-action {
+        font-size: 14px;
+    }
+    </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h2>Form Validation</h2>
-        <p>In this example, we use <code>.needs-validation</code>, which will add the validation effect AFTER the form
-            has been submitting (if there's anything missing).</p>
-        <p>Try to submit this form before filling out the input fields, to see the effect.</p>
-        <form action="/action_page.php" class="needs-validation" novalidate>
-            <div class="form-group">
-                <label for="uname">Username:</label>
-                <input type="text" class="form-control" id="uname" placeholder="Enter username" name="uname" required>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Check this checkbox to continue.</div>
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <BR><BR>
+    <div class="container-sm" style="Width:40%">
+
+        <div class="login-form">
+            <form action="./index2.php" method="post">
+                <h2 class="text-center">Sign In</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <span class="fa fa-user"></span>
+                            </span>
+                        </div>
+                        <input type="text" name="uid" id="uid" class="form-control" placeholder="Username"
+                            required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                        <input type="password" name="pwd" id="pwd" class="form-control" placeholder="Password"
+                            required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="login"  class="btn btn-primary btn-block">Log in</button>
+                </div>
+                <div class="bottom-action clearfix">
+                    <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+                    <a href="#" class="float-right">Forgot Password?</a>
+                </div>
+            </form>
+            <p class="text-center small">Don't have an account! <a href="#">Sign up here</a>.</p>
+        </div>
+
     </div>
 
-    <script>
-    // Disable form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Get the forms we want to add validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-    </script>
 
 </body>
 
