@@ -21,8 +21,19 @@
          $_SESSION['timeout'] = time();
          $_SESSION['uid'] = $_POST["uid"];
          $_SESSION["pwd"] = $_POST["pwd"];
+         
          $uid = $_SESSION['uid'];
          $pwd = $_SESSION['pwd'];
+
+         if (isset($_POST["isadmin"])) {
+             $isamin = TRUE;
+             $_SESSION["isadmin"]=TRUE;
+         } else {
+             $isadmin = FALSE;
+             $_SESSION["isadmin"]=FALSE;
+         }
+         $isadmin = $_SESSION["isadmin"];
+         echo "value of isadmin is $isadmin";
          
       }else {
          echo '<script>alert("Invalid Username or Password. Try again")</script>';
@@ -65,7 +76,8 @@
             ?>
             <!-- Set rightside navbar links if no user signed-in -->
             <ul class="navbar-nav navbar-right">
-                <li class="dropdown text-info"><a class="dropdown-toggle" data-toggle="dropdown"> Welcome
+                <li class="dropdown text-info"><a class="dropdown-toggle" data-toggle="dropdown">
+                        <?php if ($isadmin==1) { ?> <i class="fa fa-usersecret"></i> <?php } ?> Welcome
                         <?php echo $uid; ?></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"> <i class="fa fa-user-plus"></i> My Profile</a></li>
